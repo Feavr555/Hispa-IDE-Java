@@ -12,7 +12,7 @@ void addFileMain(char*file){
 	FILE*java;
 	char code[50];
 	for(int i=0; i<50; i++){
-		code[i]=0x0A;
+		code[i]=0x20;
 	}
 	strcpy(code,"src/main/");
 	strcat(code,file);
@@ -21,15 +21,20 @@ void addFileMain(char*file){
 	strcpy(code,"package main;\n\n");
 	strcat(code,"public class ");
 	strcat(code,file);
-	strcat(code,"{\n\n}");
-	fwrite(code,1,(sizeof code),java);
+	strcat(code,"{\n\n}\n");
+	int i=0,j=0;
+	while(i<50) {if(code[i]==0x00) {code[i]=0x20; j=i;} i++;}
+	char codigo[j];
+	i=0;
+	while(i<j) {codigo[i]=code[i]; i++;}
+	fwrite(code,1,(sizeof codigo),java);
 	fclose(java);
 }
 
 void addPack(char*pack,char*file){
 	char code[50];
 	for(int i=0; i<50; i++){
-		code[i]=0x0A;
+		code[i]=0x20;
 	}
 	FILE*java;
 	strcpy(code,"src/");
@@ -43,7 +48,12 @@ void addPack(char*pack,char*file){
 	strcat(code,pack);
 	strcat(code,";\n\npublic class ");
 	strcat(code,file);
-	strcat(code,"{\n}");
-	fwrite(code,1,(sizeof code),java);
+	strcat(code,"{\n}\n");
+	int i=0,j=0;
+	while(i<50) {if(code[i]==0x00) {code[i]=0x20; j=i;} i++;}
+	char codigo[j];
+	i=0;
+	while(i<j){codigo[i]=code[i]; i++;}
+	fwrite(code,1,(sizeof codigo),java);
 	fclose(java);
 }
